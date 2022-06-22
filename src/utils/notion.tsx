@@ -6,7 +6,7 @@ export default class NotionService {
 
 	constructor() {
 		this.client = new Client({
-			auth: process.env.NOTION_TOKEN,
+			auth: process.env.NOTION_KEY,
 		})
 	}
 

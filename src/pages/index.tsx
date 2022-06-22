@@ -11,15 +11,15 @@ const Home: NextPage = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
 	return (
 		<div className="wrapper">
-			<Logo animate={true} />
+			<Logo animate="true" />
 
 			<div className="habits">
 				{habits.map((habit: Habit) => {
 					console.log('habits from index', habit)
 					return (
-						<Link href={`/habits/${habit.slug}`}>
+						<Link href={`/habits/${habit.slug}`} key={habit.id}>
 							<a>
-								<div className="habit" key={habit.id}>
+								<div className="habit">
 									<h3>{habit.name}</h3>
 									<ul>
 										<li>{habit.description}</li>
