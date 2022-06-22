@@ -1,0 +1,40 @@
+/* https://coolors.co/palette/8ecae6-219ebc-023047-ffb703-fb8500 */
+
+:root {
+	/* CSS HEX */
+	--black: #000000ff;
+	--oxford-blue: #14213dff;
+	--orange-web: #fca311ff;
+	--platinum: #e5e5e5ff;
+	--white: #ffffffff;
+}
+
+html,
+body {
+	padding: 0;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+body {
+	background-color: var(--black);
+	color: var(--white);
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.wrapper {
+	padding: 20px;
+}
+
+.logo {
+	fill: var(--platinum);
+}
