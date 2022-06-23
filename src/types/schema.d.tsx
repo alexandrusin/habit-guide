@@ -11,5 +11,5 @@ export type Habit = {
 	description: string
 	why: string
 	difficulty: string
-	tags: Tag[]
+	// tags: Tag[]
 }
