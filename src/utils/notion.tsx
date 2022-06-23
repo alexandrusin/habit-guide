@@ -1,5 +1,5 @@
 import { Client } from '@notionhq/client'
-import { Habit, HabitPage } from '../types/schema.d'
+import { Habit } from '../types/schema.d'
 
 export default class NotionService {
 	client: Client
