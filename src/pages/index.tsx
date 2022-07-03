@@ -1,10 +1,9 @@
+import Link from 'next/link'
+import { GetStaticProps, InferGetStaticPropsType } from 'next'
+import { Habit } from '../types/schema.d'
 import type { NextPage } from 'next'
 import NotionService from '../utils/notion'
 import Logo from '../components/Logo'
-
-import { GetStaticProps, InferGetStaticPropsType } from 'next'
-import { Habit } from '../types/schema.d'
-import Link from 'next/link'
 
 const Home: NextPage = ({
 	habits,

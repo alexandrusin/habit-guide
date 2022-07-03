@@ -1,9 +1,14 @@
-import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import Link from 'next/link'
+import Markdown from 'markdown-to-jsx'
+import Image from 'next/image'
+import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import Logo from '../../components/Logo'
 import NotionService from '../../utils/notion'
 
-const Habit = ({ habit }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Habit = ({
+	habit,
+	markdown,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
 	return (
 		<div className="wrapper">
 			<Link href="/">
@@ -11,8 +16,11 @@ const Habit = ({ habit }: InferGetStaticPropsType<typeof getStaticProps>) => {
 					<Logo animate="true" />
 				</a>
 			</Link>
-
 			<h2>{habit.name}</h2>
+			<article className="prose">
+				<Markdown>{markdown}</Markdown>
+			</article>
+			<pre>{JSON.stringify(habit, null, 2)}</pre>
 		</div>
 	)
 }
@@ -30,6 +38,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 	return {
 		props: {
 			habit: data.habit,
+			markdown: data.markdown,
 		},
 	}
 }

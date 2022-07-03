@@ -1,12 +1,17 @@
 import { Client } from '@notionhq/client'
+import { NotionToMarkdown } from 'notion-to-md'
 import { Habit } from '../types/schema.d'
 
 export default class NotionService {
-	client: Client
+	notion: Client
+	n2m: NotionToMarkdown
 
 	constructor() {
-		this.client = new Client({
+		this.notion = new Client({
 			auth: process.env.NOTION_KEY,
+		})
+		this.n2m = new NotionToMarkdown({
+			notionClient: this.notion,
 		})
 	}
 
@@ -17,7 +22,7 @@ export default class NotionService {
 		// (https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#nullish-coalescing-operator)
 
 		// list all habits in the database
-		const response = await this.client.databases.query({
+		const response = await this.notion.databases.query({
 			database_id: database,
 			filter: {
 				property: 'Published',
@@ -38,7 +43,7 @@ export default class NotionService {
 		}
 
 		const database = process.env.NOTION_DATABASE_ID ?? ''
-		const response = await this.client.databases.query({
+		const response = await this.notion.databases.query({
 			database_id: database,
 			filter: {
 				property: 'Slug',
@@ -50,14 +55,25 @@ export default class NotionService {
 			},
 		})
 
-		if (!response.results[0]) {
+		// const post = await this.notion.pages.retrieve({
+		// 	page_id: response.results[0].id,
+		// })
+
+		const page = response.results[0]
+		const blocks = await this.n2m.pageToMarkdown(page.id)
+
+		console.log('HELLO DATA > ', blocks)
+
+		if (!page) {
 			throw 'No results'
 		}
 
-		let habit = NotionService.habitFormatter(response.results[0])
+		let habit = NotionService.habitFormatter(page)
+		let markdown = this.n2m.toMarkdownString(blocks)
 
 		return {
 			habit,
+			markdown,
 		}
 	}
 
